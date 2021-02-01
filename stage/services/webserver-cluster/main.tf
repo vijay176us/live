@@ -5,22 +5,32 @@ terraform {
       version = "~> 3.0"
     }
   }
-  backend "s3" {
-    # Replace this with your bucket name!
-    bucket         = "terraform-up-and-running-state-vk-stage"
-    # key            = "global/s3/terraform.tfstate"
-    key            = "stage/services/webserver-cluster/terraform.tfstate"
-    region         = "us-east-2"
+  backend "remote" {
+         # The name of your Terraform Cloud organization.
+         organization = "vijay176us"
+
+         # The name of the Terraform Cloud workspace to store Terraform state files in.
+                  workspaces {
+           name = "Example-workspace"
+         }
+       }
+  # backend "s3" {
+  #   # Replace this with your bucket name!
+  #   bucket         = "terraform-up-and-running-state-vk-stage"
+  #   # key            = "global/s3/terraform.tfstate"
+  #   key            = "stage/services/webserver-cluster/terraform.tfstate"
+  #   region         = "us-east-2"
     
-    # # Replace this with your DynamoDB table name!
-    # dynamodb_table = "terraform-up-and-running-locks"
-    # encrypt        = true
-  }
+  #   # # Replace this with your DynamoDB table name!
+  #   # dynamodb_table = "terraform-up-and-running-locks"
+  #   # encrypt        = true
+  # }
 }
 
 # For private git repo  ----  > source = "git::git@github.com:<OWNER>/<REPO>.git//<PATH>?ref=<VERSION>"
 # For example:
 # source = "git::git@github.com:gruntwork-io/terraform-google-gke.git//modules/gke-cluster?ref=v0.1.2"
+
 
 module "webserver_cluster" {
 #   source = "github.com/foo/modules//webserver-cluster?ref=v0.0.1"
