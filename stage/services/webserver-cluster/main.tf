@@ -5,26 +5,26 @@ terraform {
       version = "~> 3.0"
     }
   }
-  backend "remote" {
-         # The name of your Terraform Cloud organization.
-         organization = "vijay176us"
+  # backend "remote" {
+  #        # The name of your Terraform Cloud organization.
+  #        organization = "vijay176us"
 
-         # The name of the Terraform Cloud workspace to store Terraform state files in.
-                  workspaces {
-           name = "Example-workspace"
-         }
-       }
-  # backend "s3" {
-  #   # Replace this with your bucket name!
-  #   bucket         = "terraform-up-and-running-state-vk-stage"
-  #   # key            = "global/s3/terraform.tfstate"
-  #   key            = "stage/services/webserver-cluster/terraform.tfstate"
-  #   region         = "us-east-2"
+  #        # The name of the Terraform Cloud workspace to store Terraform state files in.
+  #                 workspaces {
+  #          name = "Example-workspace"
+  #        }
+  #      }
+  backend "s3" {
+    # Replace this with your bucket name!
+    bucket         = "terraform-up-and-running-state-vk-stage"
+    # key            = "global/s3/terraform.tfstate"
+    key            = "stage/services/webserver-cluster/terraform.tfstate"
+    region         = "us-east-2"
     
-  #   # # Replace this with your DynamoDB table name!
-  #   # dynamodb_table = "terraform-up-and-running-locks"
-  #   # encrypt        = true
-  # }
+    # # Replace this with your DynamoDB table name!
+    # dynamodb_table = "terraform-up-and-running-locks"
+    # encrypt        = true
+  }
 }
 
 # For private git repo  ----  > source = "git::git@github.com:<OWNER>/<REPO>.git//<PATH>?ref=<VERSION>"
