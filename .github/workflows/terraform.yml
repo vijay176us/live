@@ -75,21 +75,24 @@ jobs:
       uses: hashicorp/setup-terraform@v1
     
     # Loading AWS credentials
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-2
+    # - name: Configure AWS Credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: us-east-2
+
 #Warning: Unexpected input(s) 'run', valid inputs are ['aws-access-key-id', 'aws-secret-access-key', 'aws-session-token', 'aws-region', 
 #'mask-aws-account-id', 'role-to-assume', 'role-duration-seconds', 'role-session-name', 'role-external-id', 'role-skip-session-tagging']        
 
-#     - name: exporting AWS credentials
-#       run:  |
-#         export ${{ secrets.AWS_ACCESS_KEY_ID }}
-#         export ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#         env
-#       shell: bash
+    - name: exporting AWS credentials
+      env:  |
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run:  |
+        export "$aws-access-key-id"
+        export "$aws-secret-access-key"
+     
  
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -114,6 +117,6 @@ jobs:
 
        # On push to main, build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Destroy
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform destroy -auto-approve  
+    # - name: Terraform Destroy
+    #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    #   run: terraform destroy -auto-approve  
