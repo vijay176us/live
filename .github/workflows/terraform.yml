@@ -87,11 +87,11 @@ jobs:
 
     - name: exporting AWS credentials
       env:  |
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run:  |
-        export "$aws-access-key-id"
-        export "$aws-secret-access-key"
+        export "$aws_access_key_id"
+        export "$aws_secret_access_key"
      
  
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
